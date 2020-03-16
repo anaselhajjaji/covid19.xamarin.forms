@@ -50,7 +50,7 @@ steps:
 # Xamarin.Android
 - task: AppCenterDistribute@3
   inputs:
-    serverEndpoint: 'App Center'
+    serverEndpoint: 'Azure Pipelines (covid app)'
     appSlug: 'elhajjajianas/covid19'
     appFile: 'src/Covid19/Covid19.Android/obj/Release/android/bin/anas.covid19.apk'
     symbolsOption: 'Android'
