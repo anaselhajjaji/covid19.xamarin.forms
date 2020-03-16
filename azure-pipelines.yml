@@ -1,0 +1,59 @@
+name: $(majorMinorVersion).$(Build.BuildId)
+
+trigger:
+- master
+
+pool:
+  vmImage: 'macos-latest'
+
+variables:
+  majorMinorVersion: 0.2
+  buildConfiguration: 'Release'
+  outputDirectory: '$(build.binariesDirectory)/$(buildConfiguration)'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '**/*.sln'
+
+- task: android-manifest-version@1
+  inputs:
+    sourcePath: 'src/Covid19/Covid19.Android/Properties/AndroidManifest.xml'
+    versionCodeOption: 'buildid'
+    versionCode: '$(Build.BuildId)'
+    versionName: '$(majorMinorVersion).$(Build.BuildId)'
+    printFile: true
+
+- task: XamarinAndroid@1
+  inputs:
+    projectFile: '**/*droid*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'
+
+- task: AndroidSigning@3
+  inputs:
+   apkFiles: '**/*.apk'
+   apksign: true
+   apksignerKeystoreFile: 'anas.keystore'
+   apksignerKeystorePassword: '$(KEYPWD)'
+   apksignerKeystoreAlias: 'anas'
+   apksignerKeyPassword: '$(KEYPWD)'
+   zipalign: true
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+# Xamarin.Android
+- task: AppCenterDistribute@3
+  inputs:
+    serverEndpoint: 'App Center'
+    appSlug: 'elhajjajianas/covid19'
+    appFile: 'src/Covid19/Covid19.Android/obj/Release/android/bin/anas.covid19.apk'
+    symbolsOption: 'Android'
+    releaseNotesOption: 'file'
+    releaseNotesFile: 'notes.txt'
+    destinationType: 'groups'
