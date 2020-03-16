@@ -57,3 +57,4 @@ steps:
     releaseNotesOption: 'file'
     releaseNotesFile: 'notes.txt'
     destinationType: 'groups'
+    distributionGroupId: '6683c620-115a-4659-b8f2-a804630560e0'
