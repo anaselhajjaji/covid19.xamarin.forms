@@ -5,4 +5,4 @@ Application is available in Visual Studio App Center for download: https://insta
 Simple Xamarin Forms Application for COVID-19 statistics, it shows the differents statistics by countries.
 
 ![ScreenShot](/images/img1.png) ![ScreenShot](/images/img2.png)
-<img src="" width="40%" /> <img src="images/img2.png" width="40%" />
+<img src="/images/img1.png" width="40%" /> <img src="/images/img2.png" width="40%" />
