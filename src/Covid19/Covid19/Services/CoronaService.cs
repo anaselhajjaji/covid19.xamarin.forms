@@ -14,7 +14,7 @@ namespace Covid19.Services
     public class CoronaService
     {
         static CoronaService _instance;
-        const string ApiUrl = "https://corona.lmao.ninja";
+        const string ApiUrl = "https://corona.lmao.ninja/v2";
 
         public static CoronaService Instance
         {
@@ -37,7 +37,10 @@ namespace Covid19.Services
             var cases = await casesApi.GetCountryCases();
 
             // Convert to DTO
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<CountryCase, CountryCaseDto>());
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<CountryCase, CountryCaseDto>();
+                cfg.CreateMap<CountryInfo, CountryInfoDto>();
+            });
             var mapper = new Mapper(config);
             var casesDto = mapper.Map<IEnumerable<CountryCase>, IEnumerable<CountryCaseDto>>(cases);
 

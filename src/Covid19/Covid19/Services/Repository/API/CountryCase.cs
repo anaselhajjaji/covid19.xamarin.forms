@@ -14,6 +14,7 @@ namespace Covid19.Services.Repository.RestApi
         public int TodayDeaths { get; set; }
         public int Recovered { get; set; }
         public int Critical { get; set; }
+        public CountryInfo CountryInfo { get; set; }
     }
 
 }

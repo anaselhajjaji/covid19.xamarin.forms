@@ -15,6 +15,7 @@ namespace Covid19.Models
         public int Recovered { get; set; }
         public int Critical { get; set; }
         public bool Favorite { get; set; }
+        public CountryInfoDto CountryInfo { get; set; }
     }
 
 }

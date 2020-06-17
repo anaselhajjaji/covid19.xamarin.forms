@@ -1,1 +1,1 @@
-Bug corrections and performances enhancements.
+Update API url and add country flag.
